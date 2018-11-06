@@ -1,7 +1,8 @@
-<div class="themes-switcher"
-     [nbPopover]="switcherListComponent"
-     nbPopoverPlacement="bottom"
-     [nbPopoverContext]="{popover: popover}">
-  <i class="nb-drops"></i>
-  <span *ngIf="showTitle">Themes</span>
+<div class="themes-switcher-list">
+  <a class="themes-switcher-item"
+      *ngFor="let theme of themes"
+      [attr.title]="theme.title"
+      (click)="onToggleTheme(theme.key)">
+    <i class="nb-drop" [ngClass]="'drop-icon-' + theme.key"></i>
+  </a>
 </div>

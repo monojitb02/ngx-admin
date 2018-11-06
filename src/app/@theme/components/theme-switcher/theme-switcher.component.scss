@@ -1,50 +1,82 @@
 @import '../../styles/themes';
 @import '~@nebular/theme/styles/core/mixins';
-@import '~@nebular/theme/styles/core/functions';
+@import '~bootstrap/scss/mixins/breakpoints';
+@import '~@nebular/theme/styles/global/breakpoints';
+
+$icon-color-default: #0bbb79;
+$icon-color-cosmic: #7958fa;
+$icon-color-corporate: #a7a2be;
+
+$icon-top-color-default: #01dbb5;
+$icon-top-color-cosmic: #a258fe;
+$icon-top-color-corporate: #e9e8eb;
 
 @include nb-install-component() {
-  .themes-switcher {
+  /deep/ .themes-switcher-list {
     display: flex;
-    font-size: 1.25rem;
-    padding: 0.8rem 1.25rem;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
-    cursor: pointer;
-    background-color: nb-theme(switcher-background);
-    border-radius: nb-theme(radius);
+    flex-wrap: wrap;
 
-    &:hover {
-      $color: nb-theme(switcher-background);
-      $percentage: nb-theme(switcher-background-percentage);
+    width: 90%;
+    margin: 0 0 1rem;
 
-      background-color: tint($color, $percentage);
-    }
+    @include nb-ltr(text-align, start);
+    @include nb-rtl(text-align, end);
 
-    span {
-      margin: 0 1.2rem;
-    }
+    .themes-switcher-item {
+      list-style: none;
+      cursor: pointer;
 
-    i {
-      color: nb-theme(color-primary);
-      font-size: 1.8rem;
-      border-radius: 50%;
-      position: relative;
-
-      @include nb-for-theme(default) {
-        color: nb-theme(color-success);
+      &:hover span {
+        opacity: 0.5;
       }
 
-      @include nb-for-theme(corporate) {
-        color: nb-theme(color-fg-highlight);
+      i {
+        font-size: 2rem;
+
+        &.drop-icon-default {
+          color: $icon-color-default;
+
+          // Hack for IE11, IE11 should not set background
+          background: -webkit-linear-gradient($icon-top-color-default, $icon-color-default);
+        }
+
+        &.drop-icon-cosmic {
+          color: $icon-color-cosmic;
+
+          // Hack for IE11, IE11 should not set background
+          background: -webkit-linear-gradient($icon-top-color-cosmic, $icon-color-cosmic);
+        }
+
+        &.drop-icon-corporate {
+          color: $icon-color-corporate;
+
+          // Hack for IE11, IE11 should not set background
+          background: -webkit-linear-gradient($icon-top-color-corporate, $icon-color-corporate);
+        }
+
+        &.drop-icon-default,
+        &.drop-icon-cosmic,
+        &.drop-icon-corporate {
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
       }
 
-      &::before {
-        // Hack for IE11, IE11 should not set background
-        background: nb-theme(drops-icon-line-gadient);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+      span {
+        font-weight: 300;
+        vertical-align: super;
+        padding-left: 1rem;
+        color: nb-theme(color-fg-heading);
       }
     }
   }
+
+  @include media-breakpoint-down(is) {
+    /deep/ .themes-switcher-list {
+      display: none;
+    }
+  }
 }
-
-
